@@ -97,10 +97,15 @@ void GameManager::endGame()
 {
     gameEnd = true;
     updateTimer->stop();
-    //Update highscores
+    bool newHigh = UpdateHighscores();
 
     QMessageBox *mbox = new QMessageBox(this);
-    mbox->setText(QString("You Lose.\nScore: %1").arg(grid->GetScore()));
+
+    if(newHigh)
+        mbox->setText(QString("You Lose.\nNew High Score: %1").arg(grid->GetScore()));
+    else
+        mbox->setText(QString("You Lose.\nScore: %1").arg(grid->GetScore()));
+
     mbox->exec();
 
     easy->setVisible(true);
@@ -113,10 +118,15 @@ void GameManager::win()
 {
     gameEnd = true;
     updateTimer->stop();
-    //Update highscores
+    bool newHigh = UpdateHighscores();
 
     QMessageBox *mbox = new QMessageBox(this);
-    mbox->setText(QString("You Win!\nScore: %1").arg(grid->GetScore()));
+
+    if(newHigh)
+        mbox->setText(QString("You Win!\nNew High Score: %1").arg(grid->GetScore()));
+    else
+        mbox->setText(QString("You Win!\nScore: %1").arg(grid->GetScore()));
+
     mbox->exec();
 
     easy->setVisible(true);
@@ -125,38 +135,63 @@ void GameManager::win()
     lunatic->setVisible(true);
 }
 
-void GameManager::UpdateHighscores()
+bool GameManager::UpdateHighscores()
 {
-//   QFile highscores("highscores.json");
-//   if(!highscores.open(QIODevice::ReadWrite))
-//   {
-//       qWarning("Could not open highscores file");
-//       return;
-//   }
-//   QByteArray byteArr = highscores.readAll();
-//   QJsonDocument hs = QJsonDocument::fromJson(byteArr);
-//   QJsonArray scores = hs.array();
+   QFile highscores("../SnakeGame/highscores.json");
+   if(!highscores.open(QIODevice::ReadWrite))
+   {
+       qWarning("Could not open highscores file");
+       return false;
+   }
+   QByteArray byteArr = highscores.readAll();
+   QJsonDocument hs = QJsonDocument::fromJson(byteArr);
+   QJsonArray scores = hs.array();
 
-//   int[10] scoreArr;
+   QVector<int> scoreArr;
+   bool newHighscore = false;
 
-//   for(int i = 0; i < scores.size(); i++)
-//   {
-//       scoreArr[i] = scores.at(i).toInt();
-//   }
+   for(int i = 0; i < scores.size(); i++)
+   {
+       scoreArr[i] = scores.at(i).toInt();
+   }
 
-//   scores.empty();
+   scores.empty();
 
-//   int newScore = grid->GetScore();
-//   foreach(int i, scoreArr)
-//   {
-//       if(newScore > i)
-//       {
-//          scores.insert(i, newScore);
-//          break;
-//       }
-//   }
+   int newScore = grid->GetScore();
+
+   if(scoreArr.isEmpty())
+   {
+       scoreArr.push_back(newScore);
+       newHighscore = true;
+   }
+   else
+   {
+       for(int i = 0; i < scoreArr.size(); i++)
+       {
+           if(newScore > scoreArr.at(i))
+           {
+              scoreArr.insert(i, newScore);
+
+              if(i == 0)
+                  newHighscore = true;
+
+              break;
+           }
+       }
+   }
 
 
+   for(int i = 0; i < scoreArr.size(); i++)
+   {
+       scores.push_back(scoreArr[i]);
+   }
+
+   hs.setArray(scores);
+   highscores.write(hs.toJson());
+   highscores.flush();
+   highscores.close();
+
+   return newHighscore;
 
 }
 

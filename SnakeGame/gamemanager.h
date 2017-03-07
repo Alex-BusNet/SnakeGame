@@ -28,7 +28,7 @@ private:
     void win();
     bool gameEnd;
 
-    void UpdateHighscores();
+    bool UpdateHighscores();
 
 signals:
 
