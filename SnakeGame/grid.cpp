@@ -174,6 +174,10 @@ void Grid::MoveUp()
         currentTile--;
         UpdateSnake();
     }
+    else
+    {
+        gameOver = true;
+    }
 }
 
 void Grid::MoveDown()
@@ -238,6 +242,10 @@ void Grid::MoveDown()
         lastTile = currentTile;
         currentTile++;
         UpdateSnake();
+    }
+    else
+    {
+        gameOver = true;
     }
 }
 
@@ -304,6 +312,10 @@ void Grid::MoveLeft()
         currentTile -= sizeY;
         UpdateSnake();
     }
+    else
+    {
+        gameOver = true;
+    }
 }
 
 void Grid::MoveRight()
@@ -368,6 +380,10 @@ void Grid::MoveRight()
         lastTile = currentTile;
         currentTile += sizeY;
         UpdateSnake();
+    }
+    else
+    {
+        gameOver = true;
     }
 }
 

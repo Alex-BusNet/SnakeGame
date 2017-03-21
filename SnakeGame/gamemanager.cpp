@@ -50,6 +50,7 @@ void GameManager::paintEvent(QPaintEvent *e)
     if(grid != NULL && !gameEnd)
     {
         grid->DrawGrid(paint);
+
         currentScore->setText(QString("Score: %1").arg(grid->GetScore()));
 
         if(grid->isGameOver())
@@ -99,7 +100,7 @@ void GameManager::endGame()
     updateTimer->stop();
     bool newHigh = UpdateHighscores();
 
-    QMessageBox *mbox = new QMessageBox(this);
+    QMessageBox *mbox = new QMessageBox();
 
     if(newHigh)
         mbox->setText(QString("You Lose.\nNew High Score: %1").arg(grid->GetScore()));
@@ -120,7 +121,7 @@ void GameManager::win()
     updateTimer->stop();
     bool newHigh = UpdateHighscores();
 
-    QMessageBox *mbox = new QMessageBox(this);
+    QMessageBox *mbox = new QMessageBox();
 
     if(newHigh)
         mbox->setText(QString("You Win!\nNew High Score: %1").arg(grid->GetScore()));
@@ -152,9 +153,8 @@ bool GameManager::UpdateHighscores()
 
    for(int i = 0; i < scores.size(); i++)
    {
-       scoreArr[i] = scores.at(i).toInt();
+       scoreArr.push_back(scores.at(i).toInt());
    }
-
    scores.empty();
 
    int newScore = grid->GetScore();
@@ -170,12 +170,12 @@ bool GameManager::UpdateHighscores()
        {
            if(newScore > scoreArr.at(i))
            {
-              scoreArr.insert(i, newScore);
+               scoreArr.insert(i, newScore);
 
-              if(i == 0)
-                  newHighscore = true;
+               if(i == 0)
+                   newHighscore = true;
 
-              break;
+               break;
            }
        }
    }
@@ -192,7 +192,6 @@ bool GameManager::UpdateHighscores()
    highscores.close();
 
    return newHighscore;
-
 }
 
 void GameManager::moveSnake()
