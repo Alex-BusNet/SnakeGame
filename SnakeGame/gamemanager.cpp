@@ -5,10 +5,10 @@
 #include <QMessageBox>
 #include <QVBoxLayout>
 
-int mapX = 20, mapY = 10;
+int mapX = 50, mapY = 25;
 GameManager::GameManager(QWidget *parent) : QWidget(parent)
 {
-    this->setFixedSize((50 * mapX) + 20, (50 * mapY) + 35);
+    this->setFixedSize((30 * mapX) + 20, (30 * mapY) + 35);
 
     grid = NULL;
 
@@ -233,7 +233,7 @@ void GameManager::setEasy()
     hard->setVisible(false);
     lunatic->setVisible(false);
 
-    updateTimer->setInterval(500);
+    updateTimer->setInterval(150);
     updateTimer->start();
 }
 
@@ -253,7 +253,7 @@ void GameManager::setMedium()
     hard->setVisible(false);
     lunatic->setVisible(false);
 
-    updateTimer->setInterval(250);
+    updateTimer->setInterval(100);
     updateTimer->start();
 }
 
@@ -273,7 +273,7 @@ void GameManager::setHard()
     hard->setVisible(false);
     lunatic->setVisible(false);
 
-    updateTimer->setInterval(125);
+    updateTimer->setInterval(50);
     updateTimer->start();
 }
 
@@ -293,6 +293,6 @@ void GameManager::setLunatic()
     hard->setVisible(false);
     lunatic->setVisible(false);
 
-    updateTimer->setInterval(50);
+    updateTimer->setInterval(5);
     updateTimer->start();
 }

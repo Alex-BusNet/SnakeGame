@@ -46,24 +46,24 @@ Tile::Tile(int _posX, int _posY, int col, int row, int index, bool isHexagon)
         ///TODO: Make the squares smaller
 
         this->poly << QPoint(_posX, _posY)
-                   << QPoint(_posX + 50, _posY)
-                   << QPoint(_posX + 50, _posY + 50)
-                   << QPoint(_posX, _posY + 50);
+                   << QPoint(_posX + 30, _posY)
+                   << QPoint(_posX + 30, _posY + 30)
+                   << QPoint(_posX, _posY + 30);
 
-        center = QPoint(_posX + 25, _posY + 25);
+        center = QPoint(_posX + 15, _posY + 15);
 
-        snakePoints[0] = QPoint(_posX + 13, _posY + 13);
-        snakePoints[1] = QPoint(_posX + 37, _posY + 13);
-        snakePoints[2] = QPoint(_posX + 37, _posY + 37);
-        snakePoints[3] = QPoint(_posX + 13, _posY + 37);
-        snakePoints[4] = QPoint(_posX + 13, _posY);
-        snakePoints[5] = QPoint(_posX + 37, _posY);
-        snakePoints[6] = QPoint(_posX + 50, _posY + 13);
-        snakePoints[7] = QPoint(_posX + 50, _posY + 37);
-        snakePoints[8] = QPoint(_posX + 37, _posY + 50);
-        snakePoints[9] = QPoint(_posX + 13, _posY + 50);
-        snakePoints[10] = QPoint(_posX, _posY + 37);
-        snakePoints[11] = QPoint(_posX, _posY + 13);
+        snakePoints[0] = QPoint(_posX + 10, _posY + 10);
+        snakePoints[1] = QPoint(_posX + 20, _posY + 10);
+        snakePoints[2] = QPoint(_posX + 20, _posY + 20);
+        snakePoints[3] = QPoint(_posX + 10, _posY + 20);
+        snakePoints[4] = QPoint(_posX + 10, _posY);
+        snakePoints[5] = QPoint(_posX + 20, _posY);
+        snakePoints[6] = QPoint(_posX + 30, _posY + 10);
+        snakePoints[7] = QPoint(_posX + 30, _posY + 20);
+        snakePoints[8] = QPoint(_posX + 20, _posY + 30);
+        snakePoints[9] = QPoint(_posX + 10, _posY + 30);
+        snakePoints[10] = QPoint(_posX, _posY + 20);
+        snakePoints[11] = QPoint(_posX, _posY + 10);
     }
 
     this->index = index;

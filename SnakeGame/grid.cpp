@@ -19,7 +19,7 @@ Grid::Grid(int sizeX, int sizeY, bool lunatic)
     int column = 0, row = 0;
     Tile* t;
 
-    border = new QRect(posX, posY, 50 * sizeX, 50 * sizeY);
+    border = new QRect(posX, posY, 30 * sizeX, 30 * sizeY);
 
     for(int i = 0; i < sizeX; i++)
     {
@@ -27,11 +27,11 @@ Grid::Grid(int sizeX, int sizeY, bool lunatic)
         {
             t = new Tile(posX, posY, column, row, board.size(), lunatic);
             board.push_back(t);
-            posY += 50;
+            posY += 30;
             row++;
         }
 
-        posX += 50;
+        posX += 30;
         posY = 25;
         row = 0;
         column++;
@@ -54,7 +54,7 @@ void Grid::DrawGrid(QPainter &paint)
 {
     if(draw)
     {
-        QRadialGradient background(QPointF((50 * sizeX) / 2, (50 * sizeY) / 2), 400);
+        QRadialGradient background(QPointF((30 * sizeX) / 2, (30 * sizeY) / 2), 400);
         background.setColorAt(0, Qt::white);
         background.setColorAt(1, Qt::darkCyan);
 
